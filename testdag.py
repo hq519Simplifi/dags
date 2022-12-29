@@ -22,6 +22,7 @@ default_args = {
     "email_on_retry": True,
     "retries": 0,
     "retry_delay": timedelta(minutes=1),
+    "catchup": True,,
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
