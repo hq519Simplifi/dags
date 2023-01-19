@@ -34,7 +34,8 @@ dag = DAG("testAll", default_args=default_args, schedule_interval=timedelta(1))
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 t1 = SqlSensor(
   task_id="data_check",
-  conn_id="MY_PROD_DB",
+  #conn_id="MY_PROD_DB",
+  conn_id="pg_consul",
   poke_interval=60,
   timeout=14400,
   sql="select count(*) from test1",
