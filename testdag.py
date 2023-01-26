@@ -16,7 +16,7 @@ local_tz = pendulum.timezone("America/Chicago")
 default_args = {
     "owner": "airflow",
     "depends_on_past": True,
-    'start_date': datetime(year=2023, month=1, day=17, hour=0, tzinfo=local_tz),
+    'start_date': datetime(2023, 1, 25, 13, 46, 0, tzinfo=local_tz),
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
     "email_on_retry": True,
