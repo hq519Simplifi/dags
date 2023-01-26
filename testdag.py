@@ -15,14 +15,14 @@ local_tz = pendulum.timezone("America/Chicago")
 
 default_args = {
     "owner": "airflow",
-    "depends_on_past": True,
+    "depends_on_past": False,
     'start_date': datetime(2023, 1, 25, 13, 46, 0, tzinfo=local_tz),
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
     "email_on_retry": True,
     "retries": 0,
     "retry_delay": timedelta(minutes=1),
-    "catchup": False,
+    "catchup": True,
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
