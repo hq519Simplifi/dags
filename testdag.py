@@ -16,7 +16,7 @@ local_tz = pendulum.timezone("America/Chicago")
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    'start_date': datetime(2023, 2, 13, 13, 46, 0, tzinfo=local_tz),
+    'start_date': datetime(2023, 2, 14, 13, 46, 0, tzinfo=local_tz),
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
     "email_on_retry": True,
@@ -47,8 +47,8 @@ t1 = SqlSensor(
 t2 = BashOperator(task_id="localtest", bash_command="date >> /usr/local/airflow/dags/ttt", retries=3, dag=dag)
 
 t3 = SSHOperator(
-  task_id="remotessh",
-  command="date >> ~/ttt",
+  task_id="remotesshSparkJob",
+  command="$SPARK_HOME/bin/spark-submit --master spark://localhost:7077 --class org.apache.spark.examples.SparkPi /opt/apache/spark/examples/jars/spark-examples_2.12-3.3.1.jar",
   #ssh_conn_id="ssh_default",
   ssh_conn_id="ssh_ubuntusrv",
   do_xcom_push=True,
