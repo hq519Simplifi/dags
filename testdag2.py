@@ -20,12 +20,12 @@ def load_pg():
     conn = PostgresHook(postgres_conn_id='pg_consul').get_conn()
     cur = conn.cursor()
     SQL_STATEMENT = """
-        COPY test1 FROM STDIN WITH (Delimiter ';')
+        COPY test1 FROM STDIN WITH (Delimiter ';', FORMAT csv, NULL '')
         """
 
     with open(file_csv, 'r') as f:
 
-        cur.copy_expert(SQL_STATEMENT, f, NULL='')
+        cur.copy_expert(SQL_STATEMENT, f)
         conn.commit()
 
 default_args = {
