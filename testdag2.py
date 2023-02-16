@@ -25,7 +25,7 @@ def load_pg():
 
     with open(file_csv, 'r') as f:
 
-        cur.copy_expert(SQL_STATEMENT, f, null='')
+        cur.copy_expert(SQL_STATEMENT, f, NULL='')
         conn.commit()
 
 default_args = {
