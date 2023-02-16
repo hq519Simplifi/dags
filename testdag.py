@@ -48,7 +48,7 @@ t2 = BashOperator(task_id="localtest", bash_command="date >> /usr/local/airflow/
 
 t3 = SSHOperator(
   task_id="remotesshSparkJob",
-  command="$SPARK_HOME/bin/spark-submit --master spark://localhost:7077 --class org.apache.spark.examples.SparkPi /opt/apache/spark/examples/jars/spark-examples_2.12-3.3.1.jar",
+  command="source ~/.bashrc && $SPARK_HOME/bin/spark-submit --master spark://localhost:7077 --class org.apache.spark.examples.SparkPi /opt/apache/spark/examples/jars/spark-examples_2.12-3.3.1.jar",
   #ssh_conn_id="ssh_default",
   ssh_conn_id="ssh_ubuntusrv",
   do_xcom_push=True,
