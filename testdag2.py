@@ -17,7 +17,8 @@ local_tz = pendulum.timezone("America/Chicago")
 file_csv = "/usr/local/airflow/dags/data_tst.csv"
 
 def load_pg():
-    conn = PostgresHook(postgres_conn_id='pg_consul').get_conn()
+    #conn = PostgresHook(postgres_conn_id='pg_consul').get_conn()
+    conn = PostgresHook(postgres_conn_id='MY_PROD_DB').get_conn()
     cur = conn.cursor()
     SQL_STATEMENT = """
         COPY test1 FROM STDIN WITH (Delimiter ';', FORMAT csv, NULL '')
