@@ -38,14 +38,13 @@ default_args = {
     "email_on_retry": True,
     "retries": 0,
     "retry_delay": timedelta(minutes=1),
-    "catchup": False,
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG("testpgload", default_args=default_args, schedule_interval=timedelta(1))
+dag = DAG("testpgload", default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 t1 = DummyOperator(
   task_id="Initialize",
