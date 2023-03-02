@@ -10,7 +10,7 @@ from airflow.sensors.sql import SqlSensor
 from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
-
+from airflow.operators.dummy_operator import DummyOperator
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 
@@ -34,6 +34,10 @@ default_args = {
 dag = DAG(DAG_ID, default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
+t0 = DummyOperator(
+  task_id="Initialize",
+  dag=dag)
+
 t1 = SqlSensor(
   task_id="data_check",
   conn_id="MY_PROD_DB",
@@ -55,4 +59,5 @@ t3 = SSHOperator(
   depends_on_past=True,
   dag=dag)
 
+t1.set_upstream(t0)
 t3.set_upstream(t1)
