@@ -32,6 +32,12 @@ default_args = {
 dag = DAG("testAll", default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
+t0 = DummyOperator(
+  task_id="Initialize",
+  dag=dag)
+
+
+
 t1 = SqlSensor(
   task_id="data_check",
   conn_id="MY_PROD_DB",
@@ -56,5 +62,6 @@ t3 = SSHOperator(
   depends_on_past=True,
   dag=dag)
 
+t1.set_upstream(t0)
 t2.set_upstream(t1)
 t3.set_upstream(t1)
