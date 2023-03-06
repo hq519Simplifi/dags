@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# --driver-memory 30g\
+# --conf "spark.executor.memory=50G"\
+# --conf "spark.executor.cores=10"\
+# --conf "spark.cores.max=100"\
+# --conf "spark.sql.shuffle.partitions=1024"\
+# --archives 
+
+#get venv 
+source /home/hai/miniconda3/bin/activate pyspark_conda_env 
+export SPARk_HOME=/opt/apache/spark
+#Run the spark job to process the xuser data
+source $SPARk_HOME/conf/spark-env.sh
+export PATH="/home/hai/miniconda3/bin:$PATH"
+
+$SPARk_HOME/bin/spark-submit \
+ /home/hai/test/testSprkJob/pysparkjob
