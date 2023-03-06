@@ -10,6 +10,7 @@ from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 from airflow.operators.dummy_operator import DummyOperator
+import os
 
 local_tz = pendulum.timezone("America/Chicago")
 

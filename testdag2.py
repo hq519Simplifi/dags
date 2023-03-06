@@ -10,6 +10,7 @@ from airflow.sensors.sql import SqlSensor
 from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
+import os
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 
