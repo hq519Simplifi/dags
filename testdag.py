@@ -13,6 +13,8 @@ from airflow.operators.dummy_operator import DummyOperator
 
 local_tz = pendulum.timezone("America/Chicago")
 
+DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
+
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -29,7 +31,7 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG("testAll", default_args=default_args, schedule_interval=timedelta(1), catchup=False)
+dag = DAG(DAG_ID, default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 t0 = DummyOperator(

@@ -11,7 +11,7 @@ from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 
-
+DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 
 local_tz = pendulum.timezone("America/Chicago")
 file_csv = "/usr/local/airflow/dags/data_tst.csv"
@@ -44,7 +44,7 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG("testpgload", default_args=default_args, schedule_interval=timedelta(1), catchup=False)
+dag = DAG(DAG_ID, default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 t1 = DummyOperator(
   task_id="Initialize",
