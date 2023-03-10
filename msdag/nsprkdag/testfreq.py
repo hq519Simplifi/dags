@@ -12,7 +12,7 @@ import pendulum
 import os
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
-SCHEDULE_INTERVAL='*/1 * * * *',
+SCHEDULE_INTERVAL=timedelta(minutes=3),
 
 local_tz = pendulum.timezone("America/Chicago")
 
