@@ -10,6 +10,8 @@ from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 import os
+from datetime import datetime, timedelta
+
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 SCHEDULE_INTERVAL=timedelta(minutes=3),
