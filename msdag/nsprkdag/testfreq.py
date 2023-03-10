@@ -10,7 +10,6 @@ from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 import os
-from datetime import datetime, timedelta
 
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
@@ -20,6 +19,7 @@ local_tz = pendulum.timezone("America/Chicago")
 
 default_args = {
     "owner": "airflow",
+    "start_date": datetime(year=2020, month=3, day=9, tzinfo=local_tz),
     "depends_on_past": False,
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
@@ -34,7 +34,6 @@ default_args = {
 }
 
 dag = DAG(DAG_ID, 
-          start_date=datetime(2023, 3, 8, 19, 15, 0, tzinfo=local_tz),
           default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, catchup=False)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
