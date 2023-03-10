@@ -19,7 +19,6 @@ local_tz = pendulum.timezone("America/Chicago")
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    'start_date': datetime(year=2023, month=3, day=1, tzinfo=local_tz),
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
     "email_on_retry": True,
@@ -32,7 +31,9 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG(DAG_ID, default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, catchup=False)
+dag = DAG(DAG_ID, 
+          start_date=datetime(2023, 3, 8, 19, 15, 0, tzinfo=local_tz),
+          default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, catchup=False)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 t1 = SqlSensor(

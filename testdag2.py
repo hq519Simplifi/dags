@@ -33,7 +33,6 @@ def load_pg():
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    'start_date': datetime(2023, 2, 15, 13, 46, 0, tzinfo=local_tz),
     "email": ["quhai519@gmail.com"],
     "email_on_failure": True,
     "email_on_retry": True,
@@ -45,7 +44,9 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG(DAG_ID, default_args=default_args, schedule_interval=timedelta(1), catchup=False)
+dag = DAG(DAG_ID,
+           start_date=datetime(2023, 3, 8, 19, 10, 0, tzinfo=local_tz),
+           default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
 t1 = DummyOperator(
   task_id="Initialize",
