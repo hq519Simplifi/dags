@@ -31,7 +31,7 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG(DAG_ID, 
+dag = DAG('testschedule2', 
           start_date=datetime(2023, 3, 8, 19, 15, 0, tzinfo=local_tz),
           default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, catchup=False)
 
