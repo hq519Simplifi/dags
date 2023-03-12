@@ -13,16 +13,33 @@ import pendulum
 from airflow.operators.dummy_operator import DummyOperator
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
-
+mailto = ["quhai519@gmail.com"]
 local_tz = pendulum.timezone("America/Chicago")
+
+def on_success_email(h):
+    """
+    email 
+    """
+    any_content = False
+    html_logs = "<body>\n  <ul>\n"
+    for task_id in ["data_check", "remoteSparkJobEnv"]:
+        task_log = h["ti"].xcom_pull(task_ids=task_id)
+        if task_log:
+            any_content = True
+            html_logs += f"    <li>{task_id}<br>\n<pre>\n{task_log}\n</pre></li>\n"
+    html_logs += "  </ul>\n</body>"
+    if any_content:
+        send_email(mailto, "testspark Processing", html_logs)
+
+
 
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    "email": ["quhai519@gmail.com"],
+    "email": mailto,
     "email_on_failure": True,
     "email_on_retry": True,
-    "retries": 0,
+    "retries": 1,
     "retry_delay": timedelta(minutes=1),
     #'start_date': datetime(2023, 2, 14, 13, 46, 0, tzinfo=local_tz),
     # 'queue': 'bash_queue',
@@ -32,10 +49,10 @@ default_args = {
 }
 
 dag = DAG(DAG_ID,
-           start_date=datetime(2023, 2, 14, 13, 46, 0, tzinfo=local_tz),
+           start_date=datetime(2023, 3, 10, 9, 46, 0, tzinfo=local_tz),
            default_args=default_args,
            schedule_interval=timedelta(1), 
-           catchup=False)
+           catchup=True)
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 t0 = DummyOperator(
