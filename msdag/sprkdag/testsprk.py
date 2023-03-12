@@ -80,5 +80,9 @@ t3 = SSHOperator(
   depends_on_past=True,
   dag=dag)
 
-t1.set_upstream(t0)
-t3.set_upstream(t1)
+t_final = DummyOperator(
+    task_id="Finalize",
+    on_success_callback=on_success_email,
+    dag=dag)
+
+t0 >> t1 >> t3 >> t_final
