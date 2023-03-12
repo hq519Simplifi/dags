@@ -41,6 +41,7 @@ default_args = {
     "email_on_retry": True,
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
+    "task_concurrency" : 1,
     #'start_date': datetime(2023, 2, 14, 13, 46, 0, tzinfo=local_tz),
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
