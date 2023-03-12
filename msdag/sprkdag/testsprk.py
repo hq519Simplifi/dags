@@ -11,6 +11,7 @@ from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 from airflow.operators.dummy_operator import DummyOperator
+from airflow.utils.email import send_email
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 mailto = ["quhai519@gmail.com"]
