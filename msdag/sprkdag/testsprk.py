@@ -49,7 +49,7 @@ default_args = {
 }
 
 dag = DAG(DAG_ID,
-           start_date=datetime(2023, 3, 10, 9, 46, 0, tzinfo=local_tz),
+           start_date=datetime(2023, 3, 9, 9, 46, 0, tzinfo=local_tz),
            default_args=default_args,
            schedule_interval=timedelta(1), 
            catchup=True)
