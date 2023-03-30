@@ -8,6 +8,7 @@ from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 from airflow.sensors.sql import SqlSensor
 from airflow.contrib.operators.ssh_operator import SSHOperator
+from airflow.contrib.operators.sftp_operator import SFTPOperator
 from airflow.operators.email_operator import EmailOperator
 import pendulum
 from airflow.operators.dummy_operator import DummyOperator
@@ -57,7 +58,17 @@ t1 = SqlSensor(
 
 #t1 = BashOperator(task_id="print_date", bash_command="date", dag=dag)
 
-t2 = BashOperator(task_id="localtest", bash_command="date >> /usr/local/airflow/dags/ttt", retries=3, dag=dag)
+#t2 = BashOperator(task_id="localtest", bash_command="date >> /usr/local/airflow/dags/ttt", retries=3, dag=dag)
+
+t2 = SFTPOperator(
+    task_id="test_sftp",
+    ssh_conn_id="ssh_ubuntusrv",
+    local_filepath="/usr/local/airflow/dags/ttt",
+    remote_filepath="/home/hai/ttt",
+    operation="put",
+    create_intermediate_dirs=True,
+    dag=dag
+)
 
 t3 = SSHOperator(
   task_id="remotesshSparkJob",
