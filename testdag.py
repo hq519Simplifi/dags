@@ -1,7 +1,6 @@
 """
 Code that goes along with the Airflow located at:
 http://airflow.readthedocs.org/en/latest/tutorial.html
-for ttttst
 """
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
@@ -63,9 +62,9 @@ t1 = SqlSensor(
 t2 = SFTPOperator(
     task_id="test_sftp",
     ssh_conn_id="ssh_ubuntusrv",
-    local_filepath="/usr/local/airflow/dags/ttt",
-    remote_filepath="/home/hai/ttt",
-    operation="put",
+    local_filepath="/usr/local/airflow/file.csv",
+    remote_filepath="/home/hai/tst.txt",
+    operation="get",
     create_intermediate_dirs=True,
     dag=dag
 )
