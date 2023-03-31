@@ -9,13 +9,14 @@ from datetime import datetime, timedelta
 from airflow.sensors.sql import SqlSensor
 from airflow.contrib.operators.ssh_operator import SSHOperator
 from airflow.operators.email_operator import EmailOperator
+from airflow.contrib.operators.sftp_operator import SFTPOperator
 import pendulum
 import os
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")
 
 local_tz = pendulum.timezone("America/Chicago")
-file_csv = "/usr/local/airflow/dags/data_tst.csv"
+file_csv = "/usr/local/airflow/data_tst.csv"
 
 def load_pg():
     #conn = PostgresHook(postgres_conn_id='pg_consul').get_conn()
@@ -48,9 +49,21 @@ dag = DAG(DAG_ID,
            start_date=datetime(2023, 3, 8, 19, 10, 0, tzinfo=local_tz),
            default_args=default_args, schedule_interval=timedelta(1), catchup=False)
 
-t1 = DummyOperator(
+t0 = DummyOperator(
   task_id="Initialize",
   dag=dag)
+
+t1 = SFTPOperator(
+    task_id="load_file",
+    ssh_conn_id="ssh_ubuntusrv",
+    local_filepath=file_csv,
+    remote_filepath="/home/hai/tst.txt",
+    operation="put",
+    create_intermediate_dirs=True,
+    dag=dag
+)
+
+
 
 t2 = PythonOperator(
   task_id="pg_load",
@@ -58,4 +71,5 @@ t2 = PythonOperator(
   provide_context=True,
   dag=dag)
 
+t1.set_upstream(t0)
 t2.set_upstream(t1)

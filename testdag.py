@@ -80,5 +80,5 @@ t3 = SSHOperator(
   dag=dag)
 
 t1.set_upstream(t0)
-t2.set_upstream(t1)
+#t2.set_upstream(t1)
 t3.set_upstream(t1)
