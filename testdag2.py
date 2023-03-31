@@ -58,7 +58,7 @@ t1 = SFTPOperator(
     ssh_conn_id="ssh_ubuntusrv",
     local_filepath=file_csv,
     remote_filepath="/home/hai/tst.txt",
-    operation="put",
+    operation="get",
     create_intermediate_dirs=True,
     dag=dag
 )
